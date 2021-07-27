@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LightWeatherCore
+namespace LightWeatherCore.Models
 {
     public class WeatherForecast
     {

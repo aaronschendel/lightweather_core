@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using LightWeatherCore.ExternalServices;
+using LightWeatherCore.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -28,6 +30,9 @@ namespace LightWeatherCore
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddScoped<IForecaApiClient, ForecaApiClient>();
+            services.AddScoped<IWeatherServices, WeatherServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +49,7 @@ namespace LightWeatherCore
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 

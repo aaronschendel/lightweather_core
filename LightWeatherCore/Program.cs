@@ -21,6 +21,10 @@ namespace LightWeatherCore
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+                config.AddEnvironmentVariables(prefix: "MyApp_");
+            });
     }
 }
