@@ -25,7 +25,6 @@ const SearchParams = ({
             `/weatherdata/coordinates/${coordinates.longitude},${coordinates.latitude}?token=${token}`
           );
           const json = await res.json();
-          console.log("My Json: " + json);
           setCurrentWeather(json);
           setLocation(json.locationName);
         }

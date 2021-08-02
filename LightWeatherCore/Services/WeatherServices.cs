@@ -38,5 +38,26 @@ namespace LightWeatherCore.Services
 
             return weatherData;
         }
+
+        public async Task<CurrentWeatherData> GetCurrentWeatherDataByLocationSearchPhrase(string locationSearchPhrase, string token)
+        {
+            if (string.IsNullOrEmpty(locationSearchPhrase) || string.IsNullOrEmpty(token))
+            {
+                return null;
+            }
+
+            LocationPhraseSearchResults locationPhraseSearchResults =
+                await forecaApi.GetLocationInfoBySearchPhrase(locationSearchPhrase, token);
+
+            if (locationPhraseSearchResults == null)
+            {
+                return null;
+            }
+
+            CurrentWeatherData weatherData =
+                await forecaApi.GetWeatherDataByLocationId(Convert.ToInt32(locationPhraseSearchResults.results[0].id), token);
+
+            return weatherData;
+        }
     }
 }

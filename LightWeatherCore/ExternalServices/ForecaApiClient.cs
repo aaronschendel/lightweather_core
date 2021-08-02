@@ -90,5 +90,22 @@ namespace LightWeatherCore.ExternalServices
             var parsedResponse = JsonConvert.DeserializeObject<CurrentWeatherData>(apiResponse);
             return parsedResponse;
         }
+
+        public async Task<LocationPhraseSearchResults> GetLocationInfoBySearchPhrase(string locationSearchPhrase, string token)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, $"locations/search/{ locationSearchPhrase }.json?lang=en");
+
+            HttpClient myClient3 = new HttpClient();
+            myClient3.BaseAddress = new Uri($"https://api.foreca.net/");
+            var response = await myClient3.SendAsync(request);
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                return null;
+            }
+
+            var apiResponse = response.Content.ReadAsStringAsync().Result;
+            var parsedResponse = JsonConvert.DeserializeObject<LocationPhraseSearchResults>(apiResponse);
+            return parsedResponse;
+        }
     }
 }

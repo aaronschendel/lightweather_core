@@ -44,5 +44,22 @@ namespace LightWeatherCore.Controllers
             }
             
         }
+
+        [HttpGet("{location}")]
+        public async Task<WeatherData> GetWeatherByLocationSearch([FromRoute] string location,
+            [FromQuery] string token)
+        {
+            try
+            {
+                CurrentWeatherData weatherData =
+                    await weatherServices.GetCurrentWeatherDataByLocationSearchPhrase(location, token);
+                
+                return weatherData.Current;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
     }
 }
